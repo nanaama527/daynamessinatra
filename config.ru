@@ -10,5 +10,8 @@ run ApplicationController
 
 use NamesController
 
+use SessionsController
+
 use UsersController
+
 

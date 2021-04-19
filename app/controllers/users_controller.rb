@@ -9,17 +9,16 @@ class UsersController < ApplicationController
     end
   
     post '/signup' do
-      
-      if params[:password] != params[:password_confirm]
-        flash[:message] = "Passwords did not match..."
-        redirect "/signup"
-      elsif User.all.find {|user| user.username == params[:username]}
-        flash[:message] = "' #{params[:username]} ' is already used by another user."
-        redirect "/signup"
-      end
-  
-      params.delete("password_confirm")
       binding.pry
+      # if params[:password] != params[:password_confirm]
+      #   flash[:message] = "Passwords did not match..."
+      #   redirect "/signup"
+      # elsif User.all.find {|user| user.username == params[:username]}
+      #   flash[:message] = "' #{params[:username]} ' is already used by another user."
+      #   redirect "/signup"
+      # end
+  
+      # params.delete("password_confirm")
       @user = User.create(params)
      
       if @user.id
@@ -75,17 +74,9 @@ class UsersController < ApplicationController
         redirect "/users/#{params[:id]}"
       end
     end
+
   
-    get '/login' do
-      if logged_in?
-        flash[:message] = "Hello, #{current_user.username.upcase}"
-        redirect "names/new"
-      else
-        erb :'sessions/login'
-      end
-    end
-  
-    post '/login' do
+  post '/login' do
       user = User.find_by(username: params[:username])
       if !user
         flash[:message] = "Username not registered..."
@@ -103,9 +94,9 @@ class UsersController < ApplicationController
         flash[:message] = "Log in failed... Try again."
         redirect '/login'
       end
-    end
+  end
   
-    get '/logout' do
+  get '/logout' do
       if logged_in?
         session.clear
         redirect '/'
@@ -113,22 +104,9 @@ class UsersController < ApplicationController
         flash[:message] = "Are you logged in?"
         redirect "/login"
       end
-    end
-  
-    get '/users' do
-      if admin?
-        @users = User.all
-        erb :'users/index'
-      else
-        flash[:message] = "You are not permitted to view users list."
-        if logged_in?
-          redirect "/name"
-        end
-        redirect "/login"
-      end
-    end
-  
-    get '/users/:id' do
+  end
+
+  get '/users/:id' do
       if logged_in? && current_user.id == params[:id].to_i
         @user = User.find_by_id(params[:id])
         @names = @user.names
@@ -140,9 +118,9 @@ class UsersController < ApplicationController
         end
         redirect "/login"
       end
-    end
+  end
   
-    get '/users/:id/name' do
+  get '/users/:id/name' do
       if logged_in?
         @user = User.find_by_id(params[:id])
         if @user
