@@ -18,22 +18,22 @@ birthname_list = [ "Adwoa/Kwadwo",
     #     Saturday: "Ama/Kwame",
     #     Sunday: "Akosua/Akwasi"} 
 
-User.create(name: "Darlene", password: "shawtyone" , username: "PoshedDee" , ghanaian_name: "Afia")
-User.create(name: "David", password: "Ronaldoforever" , username: "Chinguito" , ghanaian_name: "Kofi")
-User.create(name: "Louis", password: "SirOfori" , username: "Louiee V" , ghanaian_name: "Kwabena")
-User.create(name: "Crystal", password: "CANaturals" , username: "RisqueChloe" , ghanaian_name: "Ama")
-User.create(name: "Kevin", password: "SikaAbrantie" , username: "Kwame_Asare", ghanaian_name: "Kwame")
-User.create(name: "Melissa", password: "Morenita", username: "brownskinMel", ghanaian_name: "Akua")
+dee = User.create(name: "Darlene", password: "shawtyone" , username: "PoshedDee" , ghanaian_name: "Afia")
+soccer = User.create(name: "David", password: "Ronaldoforever" , username: "Chinguito" , ghanaian_name: "Kofi")
+moneyman = User.create(name: "Louis", password: "SirOfori" , username: "Louiee V" , ghanaian_name: "Kwabena")
+bougie = User.create(name: "Crystal", password: "CANaturals" , username: "RisqueChloe" , ghanaian_name: "Ama")
+stockguy = User.create(name: "Kevin", password: "SikaAbrantie" , username: "Kwame_Asare", ghanaian_name: "Kwame")
+bori = User.create(name: "Melissa", password: "Morenita", username: "brownskinMel", ghanaian_name: "Akua")
 
 
 
-Name.create(birthname: "Afia" , description: "", user_id: 1, who: "my cousin")
-Name.create(birthname: "Kofi" , description: "", user_id: 2, who: "my brother")
-Name.create(birthname: "Kwabena" , description: "", user_id: 3, who: "my bestfriend")
-Name.create(birthname: "Ama" , description: "", user_id: 4, who: "my cousin")
-Name.create(birthname: "Kwame" , description: "", user_id: 5, who: "my uncle")
-Name.create(birthname: "Akua" , description: "", user_id: 6, who: "random")
-Name.create(birthname: "Akua" , description: "", user_id: rand(1..6), who: "friend")
+Name.create(birthname: "Afia" , description: "", user_id: dee.id, who: "my cousin")
+Name.create(birthname: "Kofi" , description: "", user_id: soccer.id , who: "my brother")
+Name.create(birthname: "Kwabena" , description: "", user_id: moneyman.id, who: "my bestfriend")
+Name.create(birthname: "Ama" , description: "", user_id: bougie.id, who: "my cousin")
+Name.create(birthname: "Kwame" , description: "", user_id: stockguy.id, who: "my uncle")
+Name.create(birthname: "Akua" , description: "", user_id: bori.id, who: "random")
+Name.create(birthname: "Akua" , description: "", user_id: rand(dee.id..bori.id), who: "friend")
 
 #User.new()
     

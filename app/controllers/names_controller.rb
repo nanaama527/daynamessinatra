@@ -18,6 +18,9 @@ class NamesController < ApplicationController
       # Read
       get '/names' do
         # if logged_in?
+          @user = current_user
+          binding.pry
+          @namesof_user = @user.names
           @names = Name.all
           erb :'names/index'
         # else
