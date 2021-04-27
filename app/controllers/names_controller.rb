@@ -100,7 +100,7 @@ class NamesController < ApplicationController
         # if logged_in?
           @name = Name.find_by_id(params[:id])
           # if @name.user_id == session[:user_id]
-          # params.delete("_method")
+          params.delete("_method")
           @name.destroy
         #     flash[:message] = "The name profile was deleted."
         #     redirect to '/signup'
