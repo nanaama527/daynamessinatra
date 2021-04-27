@@ -25,6 +25,15 @@ div class="container">
 
 
 
+
+<% @namesof_user.each do |name| %>
+      name
+    <% end %>
+
+
+
+
+
 <!DOCTYPE html>
 <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
@@ -68,5 +77,45 @@ div class="container">
 
 
 
+index~
+
+<h2 class="text-center mt-5 mb-3">- Names You Posted for: </h2>
+  <% @user.names.uniq.each do |name| %>
+    <div class="d-grid">
+      <button class="btn btn-outline-light ms-auto me-auto" role="alert" style="width: fit-content;">
+        <h4 class="text-center"><a href="/namelist/<%= name.id %>"><%= name.name %></a></h4>
+      </button>
+    </div>
+  <% end %>
+<h3 class="text-center text-black-50"><%= "No meanings for any day names yet." if @user.names.empty? %></h3>
 
 
+
+
+
+
+
+
+
+~~~ Show page~~
+<% if flash[:message] %>
+  <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+    <span><%= flash[:message] %></span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<% if logged_in? %>
+    <div class="mb-5 d-md-flex justify-content-md-center">
+      <button type="submit" class="btn btn-sm btn-primary">Go to my day name!</button>
+    </div>
+    </form>
+  </div> <h1 class="card-title">User Profile</h1>
+    <h2 class="card-subtitle mb-2 text-muted">Username: <%= @user.username %></h2>
+  </div>
+  
+  <% else %>
+  <h1 class="text-center">Please log in first.</h1>
+  <a href="/login">Log In</a>
+
+<% end %>

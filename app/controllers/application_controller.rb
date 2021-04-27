@@ -3,12 +3,12 @@ require './config/environment'
 class ApplicationController < Sinatra::Base
 
   configure do
-    enable :sessions
-    set :sessions_secret, "daynames1234"
-
     set :public_folder, 'public'
     set :views, 'app/views'
 
+    enable :sessions
+    set :sessions_secret, "thisisoursessionsecret"
+    
     register Sinatra::Flash
   end
 
@@ -21,21 +21,23 @@ class ApplicationController < Sinatra::Base
     def logged_in?
       session[:user_id]
     end
-    def current_user
-      @user ||= User.find_by(id: session[:user_id])
-    end
-    
     # def current_user
-    #     User.find_by(id: session[:user_id]) 
+    #   @user ||= User.find_by(id: session[:user_id])
+    #   # binding.pry
     # end
+    
+    
+
+
+    def current_user
+      User.find_by(id: session[:user_id]) 
+    end
 
     # def logged_in?
     #     !!current_user
     # end
 
-    # def owner?
-    #   current_user == post_owner
-    # end
+    
   end
 
 

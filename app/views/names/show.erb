@@ -1,53 +1,19 @@
-<% if flash[:message] %>
-  <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
-    <span><%= flash[:message] %></span>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-<% end %>
-
-<% if logged_in? %>
-  <div class="card" style="width: 75%;">
-    <div class="card-body text-center">
-     <div class="dropdown d-flex justify-content-center">
-    <form action="/name" method="POST">
-      <select name="name" class="form-select mt-3 mb-3" style="width: 50px;" aria-label="Default select example">
-        <option selected>Names</option>
-        <option value="Akosua/Akwasi (Sunday)">Akosua/Akwasi (Sunday)</option>
-      <option value="Adwoa/Kwadwo">Adwoa/Kwadwo (Monday)</option>
-      <option value="Abena/Kwabena (Tuesday)">Abena/Kwabena (Tuesday)</option>
-      <option value="Akua/Kwaku (Wednesday)">Akua/Kwaku (Wednesday)</option>
-      <option value="Yaa/Yaw (Thursday)"> Yaa/Yaw (Thursday)</option>
-      <option value="Afia/Kofi (Friday)">Afia/Kofi (Friday)</option>
-      <option value="Ama/Kwame (Saturday)">Ama/Kwame (Saturday)</option>
-        <option class="dropdown-item" value="<%= name.name %>"><%= name.name %></option>
-        <% end %>
-      </select>
-
-      <div class="mb-5 d-md-flex justify-content-md-center">
-        <button type="submit" class="btn btn-sm btn-primary">Go to my day name!</button>
-      </div>
-    </form>
-  </div> <h1 class="card-title">User Profile</h1>
-      <h2 class="card-subtitle mb-2 text-muted">Username: <%= @user.username %></h2>
-    </div>
-
-<% end %>
-
 <h2 class="text-center mt-5 mb-5">
-    - <a class="text-center" href="/users/<%= @user.id %>/posts"><strong>All Your Names</strong></a> -
+    - <a class="text-center" href="/users/<%= @user.id %>/names"><strong>All Your Names</strong></a> -
 </h2>
 
-<h2 class="text-center mt-5 mb-3">- Names You Posted for -</h2>
-  <% @user.names.uniq.each do |name| %>
-    <div class="d-grid">
-      <button class="btn btn-outline-light ms-auto me-auto" role="alert" style="width: fit-content;">
-        <h4 class="text-center"><a href="/namelist/<%= name.id %>"><%= name.name %></a></h4>
-      </button>
-    </div>
-  <% end %>
-<h3 class="text-center text-black-50"><%= "No meanings for any day names yet." if @user.names.empty? %></h3>
+<h4 class="text-center">Ghanaian Birthname: <%= @name.birthname %></h4>
+<h4 class="text-center">Description: <%= @name.description %></h4>
+<h4 class="text-center">Who you is?! <%= @name.who %></h4>
 
-<% else %>
-  <h1 class="text-center">Please log in first.</h1>
-  <a href="/login">Log In</a>
-<% end %>
+
+
+<br>
+<a href="/names/<%= @name.id %>/edit">Wanna Edit?</a>
+<br>
+<br>
+<h3 class="text-center">WANNA DELETE THIS??</h3>
+  <form method=“POST” action="/names/<%= @name.id %>">
+    <input type="hidden" id="hidden" name="_method" value="DELETE">
+    <input type= "submit" value= "DELETE">
+  </form>

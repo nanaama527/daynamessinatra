@@ -1,10 +1,13 @@
-<a href="/names">Your Saved Names:</a> 
+<h1 class="mt-5 mb-3 text-center">Edit Name Info</h1>
 
-<form action="/names" method="POST">
-  Who you checkin' for?<input type='text' name="who">
+<%= @name.birthname %>
+<div class="container ml-5 mr-5">
+  <form action="/names/<%= @name.id %>" method="POST">
+    <input type="hidden" name="_method" value="patch">
+    Who you checkin' for?<input type='text' name="who" placeholder="<%= @name.who %>"> 
   <br>
   <b>Select your day name</b>
-    <select name="birthname">
+    <select name="birthname" value="<%= @name.birthname %>">
       <option value="Akosua/Akwasi (Sunday)">Akosua/Akwasi (Sunday)</option>
       <option value="Adwoa/Kwadwo">Adwoa/Kwadwo (Monday)</option>
       <option value="Abena/Kwabena (Tuesday)">Abena/Kwabena (Tuesday)</option>
@@ -16,10 +19,14 @@
   </p>
   <p>
     <b>Description:</b><br>
-    <textarea rows="4" cols="50" name="description"></textarea>
+    <textarea rows="4" cols="50" name="description" placeholder="<%= @name.description %>"></textarea>
   </p>
   <input type='submit' value='Save this profile'>
 </form>
 
-<p><a href='/logout'>Log Out</a></p>
-<p><a href='/new'>Cancel</a></p>
+
+
+
+
+    
+</div>

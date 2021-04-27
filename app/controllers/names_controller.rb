@@ -1,16 +1,20 @@
 class NamesController < ApplicationController
     register Sinatra::Flash
     
-    
       post '/names' do
-        if params[:name] == "" || params[:description] == "" 
+        binding.pry
+        if params[:birthname] == "" || params[:description] == "" 
           flash[:message] = "Oops! You must enter a day name to see your name description. Please try again."
           redirect to '/names/new'
         else
-          @name = Name.create(
+          @name = Name.new(
             :description => params[:description],
-            :name => params[:name],
+            :birthname => params[:birthname],
+            :who => params[:who],
             :user_id => session[:user_id])
+            binding.pry
+            @name.save
+            binding.pry
           redirect to "/names/#{@name.id}"
         end
       end
@@ -20,8 +24,9 @@ class NamesController < ApplicationController
         # if logged_in?
           @user = current_user
           binding.pry
-          @namesof_user = @user.names
+          # @namesof_user = @user.names
           @names = Name.all
+          binding.pry
           erb :'names/index'
         # else
         #   flash[:message] = "Looks like you weren't logged in yet. Please log in below."
@@ -40,64 +45,71 @@ class NamesController < ApplicationController
       end
     
     
-      get '/name/:id' do
-        if logged_in?
+      get '/names/:id' do
+        # if logged_in?
           @name = Name.find_by_id(params[:id])
-          if @name.user_id == session[:user_id]
-            erb :'names/new'
-          elsif @name.user_id != session[:user_id]
-            redirect '/names'
-          end
-        else
-          flash[:message] = "Looks like you weren't logged in yet. Please log in below."
-          redirect to '/names'
-        end
+          # if @name.user_id == session[:user_id]
+            # erb :'names/show'
+          # elsif @name.user_id != session[:user_id]
+          #   redirect '/names'
+          # end
+        # else
+        #   flash[:message] = "Looks like you weren't logged in yet. Please log in below."
+        #   redirect to '/login'
+        # end
+        @user = User.find_by_id(65)
+        erb :'names/show'
       end
     
-      # Update
+      # Updatee
       get '/names/:id/edit' do
-        if logged_in?
+        # if logged_in?
           @name = Name.find_by_id(params[:id])
-          if @name.user_id == session[:user_id]
+          # if @name.user_id == session[:user_id]
             erb :'names/edit'
-          else
-            flash[:message] = "Sorry that's not your profile. You can't edit it."
-            redirect to '/names'
-          end
-        else
-          flash[:message] = "Looks like you weren't logged in yet. Please log in below."
-          redirect to '/login'
-        end
+        #   else
+        #     flash[:message] = "Sorry that's not your profile. You can't edit it."
+        #     redirect to '/names'
+        #   end
+        # else
+        #   flash[:message] = "Looks like you weren't logged in yet. Please log in below."
+        #   redirect to '/login'
+        # end
       end
     
       patch '/names/:id' do
         if params[:name] == "" || params[:description] == ""  
           flash[:message] = "Oops! Please try again."
+          binding.pry
           redirect to "/names/#{params[:id]}/edit"
         else
           @name = Name.find_by_id(params[:id])
-          @name.description = params[:description]
-          @name.name = params[:name]
-          @name.user_id = current_user.id
-          @name.save
+            # @name.description = params[:description]
+            # @name.birthname = params[:birthname]
+            # @name.who = params[:who]
+            # @name.user_id = current_user.id
+            params.delete("_method")
+          @name.update(params)
           flash[:messsage] = "Your day name has been updated!"
           redirect to "/names/#{@name.id}"
         end
       end
     
       # Delete
-      delete '/names/:id/delete' do
-        if logged_in?
+      delete "/names/:id" do
+        # if logged_in?
           @name = Name.find_by_id(params[:id])
-          if @name.user_id == session[:user_id]
-            @name.delete
-            flash[:message] = "The name profile was deleted."
-            redirect to '/signup'
-          end
-        else
-          flash[:message] = "Looks like you weren't logged in yet. Please log in below."
-          redirect to '/login'
-        end
+          # if @name.user_id == session[:user_id]
+          # params.delete("_method")
+          @name.destroy
+        #     flash[:message] = "The name profile was deleted."
+        #     redirect to '/signup'
+        #   end
+        # else
+        #   flash[:message] = "Looks like you weren't logged in yet. Please log in below."
+        #   redirect to '/login'
+        # end
+        redirect "/names"
     end
     
 end

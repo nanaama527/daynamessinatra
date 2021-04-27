@@ -8,8 +8,7 @@ class UsersController < ApplicationController
         erb :'users/signup'
     end
   
-    post '/signup' do
-      binding.pry
+    post '/users' do
       # if params[:password] != params[:password_confirm]
       #   flash[:message] = "Passwords did not match..."
       #   redirect "/signup"
@@ -19,16 +18,32 @@ class UsersController < ApplicationController
       # end
   
       # params.delete("password_confirm")
-      @user = User.create(params)
-     
-      if @user.id
+
+      binding.pry
+      @user = User.new(params)
+      binding.pry
+      if @user && @user.save
+        binding.pry
         session[:user_id] = @user.id
-        flash[:message] = "Account successfully created!!!"
-        redirect "/names/new"
+        binding.pry
+        erb :"/names"
       else
-        flash[:message] = "Could not create your account. Please try again."
-        redirect "/signup"
-      end
+        binding.pry
+        erb :"users/signup"
+        end
+    
+
+
+      # @user = User.create(params)
+     
+      # if @user.id
+      #   session[:user_id] = @user.id
+      #   flash[:message] = "Account successfully created!!!"
+      #   redirect "/names/new"
+      # else
+      #   flash[:message] = "Could not create your account. Please try again."
+      #   redirect "/signup"
+      # end
     end
   
 

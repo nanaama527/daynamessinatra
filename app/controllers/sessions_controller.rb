@@ -7,24 +7,30 @@ class SessionsController < ApplicationController
         # else
         #   erb :'sessions/login'
         # end
-        erb :'users/login'
+        erb :'sessions/login'
     end
     
     post '/login' do
         user = User.find_by(username: params[:username])
         if !user
+          binding.pry
           flash[:message] = "Username not registered..."
           redirect '/login'
         elsif !user.authenticate(params[:password])
+          binding.pry
           flash[:message] = "Password does not match..."
           redirect '/login'
         end
     
         if user && user.authenticate(params[:password])
+          binding.pry
           session[:user_id] = user.id
+          binding.pry
           flash[:message] = "Hello, #{current_user.username.upcase}"
+          binding.pry
           redirect '/names/new'
         else
+          binding.pry
           flash[:message] = "Log in failed... Try again."
           redirect '/login'
         end
