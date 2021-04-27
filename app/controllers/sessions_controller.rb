@@ -12,15 +12,16 @@ class SessionsController < ApplicationController
     
     post '/login' do
         user = User.find_by(username: params[:username])
-        if !user
-          binding.pry
-          flash[:message] = "Username not registered..."
-          redirect '/login'
-        elsif !user.authenticate(params[:password])
-          binding.pry
-          flash[:message] = "Password does not match..."
-          redirect '/login'
-        end
+        binding.pry
+        # if !user
+        #   binding.pry
+        #   flash[:message] = "Username not registered..."
+        #   redirect '/login'
+        # elsif !user.authenticate(params[:password])
+        #   binding.pry
+        #   flash[:message] = "Password does not match..."
+        #   redirect '/login'
+        # end
     
         if user && user.authenticate(params[:password])
           binding.pry

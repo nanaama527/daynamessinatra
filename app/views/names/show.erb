@@ -6,14 +6,14 @@
 <h4 class="text-center">Description: <%= @name.description %></h4>
 <h4 class="text-center">Who you is?! <%= @name.who %></h4>
 
-
+<% @pleasework = @name %>
 
 <br>
 <a href="/names/<%= @name.id %>/edit">Wanna Edit?</a>
 <br>
 <br>
 <h3 class="text-center">WANNA DELETE THIS??</h3>
-  <form method=“POST” action="/names/<%= @name.id %>">
+  <form method=“POST” action="/names/<%= @pleasework.id %>">
     <input type="hidden" id="hidden" name="_method" value="DELETE">
-    <input type= "submit" value= "DELETE">
+    <input type="submit" value="DELETE">
   </form>

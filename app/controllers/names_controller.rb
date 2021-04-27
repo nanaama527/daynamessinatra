@@ -96,11 +96,14 @@ class NamesController < ApplicationController
       end
     
       # Delete
-      delete "/names/:id" do
+      delete '/names/:id' do
         # if logged_in?
+        binding.pry
           @name = Name.find_by_id(params[:id])
+          binding.pry
           # if @name.user_id == session[:user_id]
           params.delete("_method")
+          binding.pry
           @name.destroy
         #     flash[:message] = "The name profile was deleted."
         #     redirect to '/signup'
@@ -109,6 +112,7 @@ class NamesController < ApplicationController
         #   flash[:message] = "Looks like you weren't logged in yet. Please log in below."
         #   redirect to '/login'
         # end
+        binding.pry
         redirect "/names"
     end
     

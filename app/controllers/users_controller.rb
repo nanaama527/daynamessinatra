@@ -26,7 +26,7 @@ class UsersController < ApplicationController
         binding.pry
         session[:user_id] = @user.id
         binding.pry
-        erb :"/names"
+        erb :"users/index"
       else
         binding.pry
         erb :"users/signup"
