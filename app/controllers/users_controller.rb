@@ -7,6 +7,10 @@ class UsersController < ApplicationController
       end
         erb :'users/signup'
     end
+
+    get '/users' do
+      erb :'users/index'
+    end
   
     post '/users' do
       # if params[:password] != params[:password_confirm]
@@ -26,7 +30,7 @@ class UsersController < ApplicationController
         binding.pry
         session[:user_id] = @user.id
         binding.pry
-        erb :"users/index"
+        redirect '/users'
       else
         binding.pry
         erb :"users/signup"

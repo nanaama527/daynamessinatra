@@ -6,12 +6,13 @@ end
 
 use Rack::MethodOverride
 
-run ApplicationController
+use SessionsController
 
 use UsersController
 
 use NamesController
 
-use SessionsController
+run ApplicationController
+
 
 

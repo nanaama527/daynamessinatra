@@ -18,9 +18,39 @@ class NamesController < ApplicationController
           redirect to "/names/#{@name.id}"
         end
       end
+
+
+
+
+
+
+      delete "/names/:id" do
+        # if logged_in?
+        binding.pry
+          @name = Name.find_by_id(params[:id])
+        #   binding.pry
+        #   if @name.user_id == current_user.id
+          @name.destroy
+        #      flash[:message] = "The name profile was deleted."
+        #      redirect to '/signup'
+        #    end
+        #   else
+        #    flash[:message] = "Looks like you weren't logged in yet. Please log in below."
+        #    redirect to '/login'
+        # end
+        # binding.pry
+        redirect "names/new"
+        # end
+      end
+
+
+
+
+
     
       # Read
       get '/names' do
+        binding.pry
         # if logged_in?
           @user = current_user
           binding.pry
@@ -57,7 +87,7 @@ class NamesController < ApplicationController
         #   flash[:message] = "Looks like you weren't logged in yet. Please log in below."
         #   redirect to '/login'
         # end
-        @user = User.find_by_id(65)
+        @user = User.find_by_id(session[:user_id])
         erb :'names/show'
       end
     
@@ -96,24 +126,23 @@ class NamesController < ApplicationController
       end
     
       # Delete
-      delete '/names/:id' do
-        # if logged_in?
-        binding.pry
-          @name = Name.find_by_id(params[:id])
-          binding.pry
-          # if @name.user_id == session[:user_id]
-          params.delete("_method")
-          binding.pry
-          @name.destroy
-        #     flash[:message] = "The name profile was deleted."
-        #     redirect to '/signup'
-        #   end
-        # else
-        #   flash[:message] = "Looks like you weren't logged in yet. Please log in below."
-        #   redirect to '/login'
-        # end
-        binding.pry
-        redirect "/names"
-    end
-    
+      # delete '/names/:id' do
+      #   # if logged_in?
+      #   binding.pry
+      #   #   @name = Name.find_by_id(params[:id])
+      #   #   binding.pry
+      #   #   if @name.user_id == current_user.id
+      #   #   @name.destroy
+      #   #      flash[:message] = "The name profile was deleted."
+      #   #      redirect to '/signup'
+      #   #    end
+      #   #   else
+      #   #    flash[:message] = "Looks like you weren't logged in yet. Please log in below."
+      #   #    redirect to '/login'
+      #   # end
+      #   # binding.pry
+      #   # redirect "names/new"
+      #   # end
+      # end
+
 end

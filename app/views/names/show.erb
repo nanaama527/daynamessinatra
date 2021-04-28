@@ -1,19 +1,23 @@
 <h2 class="text-center mt-5 mb-5">
-    - <a class="text-center" href="/users/<%= @user.id %>/names"><strong>All Your Names</strong></a> -
+    <strong>All Your Names</strong>
 </h2>
 
 <h4 class="text-center">Ghanaian Birthname: <%= @name.birthname %></h4>
 <h4 class="text-center">Description: <%= @name.description %></h4>
 <h4 class="text-center">Who you is?! <%= @name.who %></h4>
 
-<% @pleasework = @name %>
+
 
 <br>
 <a href="/names/<%= @name.id %>/edit">Wanna Edit?</a>
 <br>
 <br>
+<form method="POST" action="/names/<%= @name.id %>">
+<input type="hidden" id="hidden" name="_method" value="DELETE">
+<input type="submit" value="DELETE">
+</form>
+--
 <h3 class="text-center">WANNA DELETE THIS??</h3>
-  <form method=“POST” action="/names/<%= @pleasework.id %>">
-    <input type="hidden" id="hidden" name="_method" value="DELETE">
+  <form method=“POST” action="/names/<%= @name.id %>">
     <input type="submit" value="DELETE">
   </form>

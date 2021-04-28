@@ -8,7 +8,7 @@ class ApplicationController < Sinatra::Base
 
     enable :sessions
     set :sessions, true
-    set :sessions_secret, "thisisoursessionsecret"
+    set :session_secret, "thisisoursessionsecret"
     
     register Sinatra::Flash
   end
@@ -20,7 +20,7 @@ class ApplicationController < Sinatra::Base
 
   helpers do
     def logged_in?
-      session[:user_id]
+      session[:user_id] = current_user
     end
     # def current_user
     #   @user ||= User.find_by(id: session[:user_id])
@@ -31,7 +31,8 @@ class ApplicationController < Sinatra::Base
 
 
     def current_user
-      User.find_by(id: session[:user_id]) 
+      @user ||= User.find_by(id: session[:user_id]) 
+      #binding.pry
     end
 
     # def logged_in?
