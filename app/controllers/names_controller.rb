@@ -25,22 +25,23 @@ class NamesController < ApplicationController
 
 
       delete "/names/:id" do
-        # if logged_in?
-        binding.pry
-          @name = Name.find_by_id(params[:id])
-        #   binding.pry
-        #   if @name.user_id == current_user.id
-          @name.destroy
-        #      flash[:message] = "The name profile was deleted."
-        #      redirect to '/signup'
-        #    end
-        #   else
-        #    flash[:message] = "Looks like you weren't logged in yet. Please log in below."
-        #    redirect to '/login'
-        # end
+        if logged_in?
         # binding.pry
-        redirect "names/new"
-        # end
+          @name = Name.find_by_id(params[:id])
+          binding.pry
+          if @name.user_id == current_user.id
+            binding.pry
+            @name.destroy
+            flash[:message] = "The name profile was deleted."
+          else
+            flash[:message] = "What's wrong pooh? That ain't your page!"
+            redirect to "/names/new"
+          end
+        # binding.pry
+        else
+          flash[:message] = "Looks like you weren't logged in yet. Please log in below."
+          redirect to '/login'
+        end
       end
 
 
@@ -50,13 +51,11 @@ class NamesController < ApplicationController
     
       # Read
       get '/names' do
-        binding.pry
         # if logged_in?
           @user = current_user
-          binding.pry
           # @namesof_user = @user.names
-          @names = Name.all
           binding.pry
+          @names = Name.all
           erb :'names/index'
         # else
         #   flash[:message] = "Looks like you weren't logged in yet. Please log in below."
@@ -93,18 +92,18 @@ class NamesController < ApplicationController
     
       # Updatee
       get '/names/:id/edit' do
-        # if logged_in?
+        if logged_in?
           @name = Name.find_by_id(params[:id])
-          # if @name.user_id == session[:user_id]
+          if @name.user_id == session[:user_id]
             erb :'names/edit'
-        #   else
-        #     flash[:message] = "Sorry that's not your profile. You can't edit it."
-        #     redirect to '/names'
-        #   end
-        # else
-        #   flash[:message] = "Looks like you weren't logged in yet. Please log in below."
-        #   redirect to '/login'
-        # end
+          else
+            flash[:message] = "Sorry that's not your profile. You can't edit it."
+            redirect to '/names'
+          end
+        else
+          flash[:message] = "Looks like you weren't logged in yet. Please log in below."
+          redirect to '/login'
+        end
       end
     
       patch '/names/:id' do

@@ -23,9 +23,8 @@ class UsersController < ApplicationController
   
       # params.delete("password_confirm")
 
-      binding.pry
+     
       @user = User.new(params)
-      binding.pry
       if @user && @user.save
         binding.pry
         session[:user_id] = @user.id
