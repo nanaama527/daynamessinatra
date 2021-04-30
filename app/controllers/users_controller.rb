@@ -26,12 +26,9 @@ class UsersController < ApplicationController
      
       @user = User.new(params)
       if @user && @user.save
-        binding.pry
         session[:user_id] = @user.id
-        binding.pry
         redirect '/users'
       else
-        binding.pry
         erb :"users/signup"
         end
     

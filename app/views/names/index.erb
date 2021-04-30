@@ -1,7 +1,7 @@
 <div class="container mt-5 mb-5 text-center">
   <h1>Choose a Day Name</h1>
   <% @names.each do |name| %>
-  <a href="names/<%=name.id%>"><%= name.who %></a> :<%= name.birthname%> X<%= name.id%>
+  <a href="names/<%=name.id%>"><%= name.who %></a> :<%= name.birthname%> X<%= name.user_id%>
     <br>
   <% end %>
   

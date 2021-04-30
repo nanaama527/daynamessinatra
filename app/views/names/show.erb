@@ -12,12 +12,10 @@
 <a href="/names/<%= @name.id %>/edit">Wanna Edit?</a>
 <br>
 <br>
+<h3 class="text-center">WANNA DELETE THIS??</h3>
 <form method="POST" action="/names/<%= @name.id %>">
 <input type="hidden" id="hidden" name="_method" value="DELETE">
 <input type="submit" value="DELETE">
+
 </form>
 --
-<h3 class="text-center">WANNA DELETE THIS??</h3>
-  <form method=“POST” action="/names/<%= @name.id %>">
-    <input type="submit" value="DELETE">
-  </form>

@@ -12,7 +12,6 @@ class SessionsController < ApplicationController
     
     post '/login' do
         user = User.find_by(username: params[:username])
-        binding.pry
         # if !user
         #   binding.pry
         #   flash[:message] = "Username not registered..."
@@ -24,14 +23,14 @@ class SessionsController < ApplicationController
         # end
     
         if user && user.authenticate(params[:password])
-          binding.pry
+          
           session[:user_id] = user.id
-          binding.pry
+        
           flash[:message] = "Hello, #{current_user.username.upcase}"
-          binding.pry
+         
           redirect '/names/new'
         else
-          binding.pry
+      
           flash[:message] = "Log in failed... Try again."
           redirect '/login'
         end
